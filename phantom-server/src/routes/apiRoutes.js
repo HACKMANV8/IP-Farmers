@@ -1,49 +1,47 @@
+// apiRoutes.js: Defines all the fake endpoints for the honeypot
 const express = require('express');
 const router = express.Router();
 const apiController = require('../controllers/apiController');
 
-// --- Authentication Routes ---
+// --- Authentication Traps (POST/Login uses rate-limiter in server.js) ---
 router.post('/auth/login', apiController.fakeLogin);
 router.post('/auth/register', apiController.fakeRegister);
+router.post('/auth/token/refresh', apiController.fakeTokenRefresh); // New Token Refresh Trap
 
-// --- User Data Routes ---
+// --- User/Profile Traps ---
 router.get('/users', apiController.getFakeUsers);
 router.get('/users/:id', apiController.getFakeUserById);
-
-// --- Profile Routes ---
 router.get('/profile/me', apiController.getFakeProfile);
 router.post('/profile/update', apiController.updateFakeProfile);
 
-// --- Data/Business Logic Routes ---
+// --- Data Traps ---
 router.get('/products', apiController.getFakeProducts);
 
-// --- Fake Admin Routes (High-Value Target) ---
+// --- Admin/High-Value Traps ---
+router.post('/admin/config', apiController.fakeAdminAction); // Fake action to log intent
 router.get('/admin/logs', apiController.getFakeAdminLogs);
-router.post('/admin/config', apiController.fakeAdminAction);
 
-// --- Fake Billing Routes (Very High-Value Targets) ---
+// --- Financial Traps ---
 router.get('/billing/subscription', apiController.getFakeSubscription);
 router.get('/billing/invoices', apiController.getFakeInvoices);
 
-// --- Fake Internal Routes (Looks sensitive) ---
+// --- Infrastructure Traps ---
 router.get('/internal/health', apiController.getFakeHealth);
 
-// --- Catch-all Route ---
-// This is the last route. Any request that doesn't match the ones above
-// will be caught here.
-router.all('*', (req, res) => {
-  // --- THIS IS THE FIX ---
-  // Now we can call the exported logAttempt function
-  apiController.logAttempt(req);
-  // --- END OF FIX ---
+// --- File System Traps (The RCE/Malware Trap) ---
+router.post('/upload/file', apiController.fakeFileUpload);
 
-  // Send a standard 404 "Not Found" response
-  const message = `Cannot ${req.method} ${req.originalUrl}`;
+// --- The Catch-All Route (Logs EVERY failed attempt) ---
+router.all('*', (req, res) => {
+  // This route catches anything that did not match the routes above.
+  // We still log the attempt because it is suspicious activity.
+  apiController.logAttempt(req);
+
   res.status(404).json({
     status: 'error',
-    message: message,
+    message: `Cannot ${req.method} ${req.originalUrl}. Resource not found.`,
+    tip: 'The requested resource could not be found on this server.',
   });
 });
 
 module.exports = router;
-
