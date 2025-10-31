@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!-- Links to the new dashboard stylesheet -->
+        <link rel="stylesheet" href="assets/css/dashboard.css">
+
+        <title>Dashboard - Tasty</title>
+    </head>
+    <body>
+
+        <a href="#" class="scrolltop" id="scroll-top">
+            <i class='bx bx-chevron-up scrolltop__icon'></i>
+        </a>
+
+        <header class="l-header" id="header">
+            <nav class="nav bd-container">
+                <a href="#home" class="nav__logo">Tasty</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <!-- Navigation links for the dashboard -->
+                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                        <li class="nav__item"><a href="#orders" class="nav__link">My Orders</a></li>
+                        <li class="nav__item"><a href="#profile" class="nav__link">Profile</a></li>
+                        
+                        <!-- Welcome Message (Replaces Login Button) -->
+                        <li class="nav__item nav__user-greeting">
+                            <span class="nav__user-text">Welcome, User!</span>
+                            <i class='bx bxs-user-circle nav__user-icon'></i>
+                        </li>
+
+                        <!-- Theme Toggle -->
+                        <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+
+        <main class="l-main">
+            <!-- Home Section -->
+            <section class="home" id="home">
+                <div class="home__container bd-container bd-grid">
+                    <div class="home__data">
+                        <h1 class="home__title">Welcome Back!</h1>
+                        <h2 class="home__subtitle">Manage your orders and <br> account details.</h2>
+                        <a href="#orders" class="button">View My Orders</a>
+                    </div>
+                    
+                    <!-- Using the same image for consistency -->
+                    <img src="assets/img/home.png" alt="" class="home__img">
+                </div>
+            </section>
+
+            <!-- 
+                I've kept the page small as requested.
+                You could add new sections here like:
+                <section class="section" id="orders">...</section>
+                <section class="section" id="profile">...</section>
+            -->
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="footer section bd-container">
+            <div class="footer__container bd-grid">
+                <div class="footer__content">
+                    <a href="#" class="footer__logo">Tasty Food</a>
+                    <span class="footer__description">Restaurant</span>
+                    <div>
+                        <a href="#" class="footer__social"><i class='bx bxl-facebook'></i></a>
+                        <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                        <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                    </div>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Services</h3>
+                    <ul>
+                        <li><a href="#" class="footer__link">Delivery</a></li>
+                        <li><a href="#" class="footer__link">Pricing</a></li>
+                        <li><a href="#" class="footer__link">Fast food</a></li>
+                        <li><a href="#" class="footer__link">Reserve your spot</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Information</h3>
+                    <ul>
+                        <li><a href="#" class="footer__link">Event</a></li>
+                        <li><a href="#" class="footer__link">Contact us</a></li>
+                        <li><a href="#" classs="footer__link">Privacy policy</a></li>
+                        <li><a href="#" class="footer__link">Terms of services</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Address</h3>
+                    <ul>
+                        <li>Lima - Peru</li>
+                        <li>Jr Union #999</li>
+                        <li>999 - 888 - 777</li>
+                        <li>tastyfood@email.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="footer__copy">&#169; 2025 Bedimcode. All right reserved</p>
+        </footer>
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!-- Links to the new dashboard JavaScript file -->
+        <script src="assets/js/dashboard.js"></script>
+    </body>
+</html>
