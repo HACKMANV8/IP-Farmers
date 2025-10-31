@@ -1,36 +1,56 @@
+// Import Node.js built-in modules for file system and path
+const fs = require('fs');
+const path = require('path');
+
+// Create a path to our new log file.
+// This will put 'honeypot.log' in your 'phantom-server' folder.
+const logFilePath = path.join(__dirname, '..', '..', 'honeypot.log');
+
+// New function to write to our log file
+const logToFile = (message) => {
+  // This converts the UTC time to your local timezone and a readable format
+  const timestamp = new Date().toLocaleString();
+  const logMessage = `${timestamp} - ${message}\n`;
+
+  // 'a' means 'append' (don't overwrite the file)
+  fs.appendFile(logFilePath, logMessage, (err) => {
+    if (err) {
+      console.error('CRITICAL: Failed to write to honeypot.log', err);
+    }
+  });
+};
+
 // Helper function to log attempts
 const logAttempt = (req) => {
-  // --- THIS IS THE UPGRADED PART ---
-  // Get the IP address
   const ip = req.ip || req.socket.remoteAddress;
-
-  // Get the User-Agent (this tells you their OS and browser)
   const userAgent = req.headers['user-agent'] || 'unknown';
-  // --- END OF UPGRADE ---
 
-  console.log(
-    `[HONEYPOT-HIT] IP: ${ip} | ${req.method} ${req.originalUrl}`
-  );
+  // Log the full User-Agent
+  const hitMessage = `[HIT] IP: ${ip} | ${req.method} ${
+    req.originalUrl
+  } | UA: ${userAgent}`;
+  console.log(hitMessage);
+  logToFile(hitMessage);
 
-  // --- THIS IS THE UPGRADED PART ---
-  // Log the device info
-  console.log(`[HONEYPOT-DEVICE] User-Agent: ${userAgent}`);
-  // --- END OF UPGRADE ---
-
-  if (Object.keys(req.body).length > 0) {
-    console.log('[HONEYPOT-BODY]', req.body);
+  // Only log the body if it's a POST, PUT, or PATCH request and the body is not empty
+  if (
+    (req.method === 'POST' ||
+      req.method === 'PUT' ||
+      req.method === 'PATCH') &&
+    Object.keys(req.body).length > 0
+  ) {
+    const bodyMessage = `[BODY] ${JSON.stringify(req.body)}`;
+    console.log(bodyMessage);
+    logToFile(bodyMessage);
   }
 };
 
 // --- Controller Functions ---
-// (All your functions are still here)
 
 // 1. Fake Login
 exports.fakeLogin = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   const { email } = req.body;
-
-  // Send back a fake token to make the attack seem successful
   res.status(200).json({
     status: 'success',
     message: 'Login successful.',
@@ -41,7 +61,7 @@ exports.fakeLogin = (req, res) => {
 
 // 2. Fake Register
 exports.fakeRegister = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   res.status(201).json({
     status: 'success',
     message: 'User registered successfully.',
@@ -51,8 +71,7 @@ exports.fakeRegister = (req, res) => {
 
 // 3. Fake Get All Users
 exports.getFakeUsers = (req, res) => {
-  logAttempt(req);
-  // Send believable, but completely fake, user data
+  logAttempt(req); // This call is correct
   res.status(200).json([
     { id: 'user-fake-1', username: 'admin', role: 'admin' },
     { id: 'user-fake-2', username: 'guest', role: 'user' },
@@ -62,7 +81,7 @@ exports.getFakeUsers = (req, res) => {
 
 // 4. Fake Get Single User
 exports.getFakeUserById = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   const { id } = req.params;
   res.status(200).json({
     id: id,
@@ -75,7 +94,7 @@ exports.getFakeUserById = (req, res) => {
 
 // 5. Fake Admin Action
 exports.fakeAdminAction = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   res.status(200).json({
     status: 'success',
     message: 'Configuration updated successfully.',
@@ -84,34 +103,33 @@ exports.fakeAdminAction = (req, res) => {
 
 // 6. Fake Get User Profile
 exports.getFakeProfile = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   res.status(200).json({
-    id: 'user-fake-id-12345', // Use a consistent fake ID
+    id: 'user-fake-id-12345',
     username: 'admin_user_01',
     email: 'admin@internal-systems.com',
     firstName: 'System',
     lastName: 'Administrator',
     role: 'admin',
     team: 'IT_Operations',
-    apiKey: 'fake_api_key_zX9qB7yP3sF5aC8t', // Juicy-looking fake data
+    apiKey: 'fake_api_key_zX9qB7yP3sF5aC8t',
     createdAt: '2023-01-01T10:00:00Z',
   });
 };
 
 // 7. Fake Profile Update
 exports.updateFakeProfile = (req, res) => {
-  logAttempt(req);
-  // We log the body to see what they tried to change
+  logAttempt(req); // This call is correct
   res.status(200).json({
     status: 'success',
     message: 'Profile updated successfully.',
-    data: req.body, // Send back the data they sent
+    data: req.body,
   });
 };
 
 // 8. Fake Get Products
 exports.getFakeProducts = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   res.status(200).json([
     { id: 'prod_abc', name: 'Standard Server', price: 100.0 },
     { id: 'prod_def', name: 'Premium Server', price: 300.0 },
@@ -119,9 +137,9 @@ exports.getFakeProducts = (req, res) => {
   ]);
 };
 
-// 9. Fake Admin Logs (A very juicy target!)
+// 9. Fake Admin Logs
 exports.getFakeAdminLogs = (req, res) => {
-  logAttempt(req);
+  logAttempt(req); // This call is correct
   res.status(200).json({
     log_count: 3,
     logs: [
@@ -131,3 +149,56 @@ exports.getFakeAdminLogs = (req, res) => {
     ],
   });
 };
+
+// 10. Fake Get Subscription / Billing
+exports.getFakeSubscription = (req, res) => {
+  logAttempt(req); // This call is correct
+  res.status(200).json({
+    userId: 'user-fake-id-12345',
+    plan: 'Enterprise (Monthly)',
+    status: 'active',
+    billing_email: 'billing@internal-systems.com',
+    payment_method: 'VISA **** **** **** 4242',
+    next_invoice: '2025-11-30T10:00:00Z',
+  });
+};
+
+// 11. Fake Get Invoices
+exports.getFakeInvoices = (req, res) => {
+  logAttempt(req); // This call is correct
+  res.status(200).json([
+    {
+      id: 'inv_A8B7C6',
+      date: '2025-10-30T10:00:00Z',
+      amount: 2500.0,
+      status: 'paid',
+    },
+    {
+      id: 'inv_D9E8F7',
+      date: '2025-09-30T10:00:00Z',
+      amount: 2500.0,
+      status: 'paid',
+    },
+  ]);
+};
+
+// 12. Fake Internal Health Check
+exports.getFakeHealth = (req, res) => {
+  logAttempt(req); // This call is correct
+  res.status(200).json({
+    status: 'ok',
+    services: {
+      api: 'healthy',
+      database: 'healthy',
+      cache: 'healthy',
+    },
+    uptime: '12d 4h 32m',
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// --- THIS IS THE FIX ---
+// We export the logAttempt function so apiRoutes.js can use it
+// in the catch-all route.
+exports.logAttempt = logAttempt;
+
