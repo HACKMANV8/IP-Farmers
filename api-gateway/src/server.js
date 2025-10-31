@@ -1,17 +1,25 @@
-const express = require("express");
-const logger = require("./middleware/logger");
-const mongoose = require("mongoose");
+// --- Code Snippet Prakhar needs to modify in his server.js ---
 
-mongoose.connect("mongodb://127.0.0.1:27017/hackathonLogs")
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ DB connection failed:", err));
+// 1. IMPORT the new relay service
+const { relayAndLog } = require('./src/services/honeypotRelay');
+// 2. CONNECT TO MONGOOSE (Assuming his code is here)
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB Connected for Attack Logging'))
+    .catch(err => console.error(err));
 
-const app = express();
+// 3. Example of his Detection Middleware (The Sentinel's code)
+app.use('/api/*', (req, res, next) => {
+    // This is where Prakhar's SQLi/XSS detection logic goes
+    const isMalicious = req.body && req.body.username && req.body.username.includes(' OR 1=1');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(logger);
+    if (isMalicious) {
+        // If attack is detected, STOP the regular API process and call the relay service
+        console.log('SQL INJECTION DETECTED! RELAYING TRAFFIC...');
+        return relayAndLog(req, res, 'SQL Injection'); // This calls the function you provided
+    }
 
-app.get("/", (req, res) => res.send("Server Running!"));
+    // If safe, continue to the real business logic
+    next();
+});
 
-app.listen(3000, () => console.log("Server on http://localhost:3000"));
+// --- End of Integration Snippet ---
