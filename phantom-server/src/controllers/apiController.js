@@ -13,11 +13,14 @@ const logToFile = (message) => {
   const logMessage = `${timestamp} - ${message}\n`;
 
   // 'a' means 'append' (don't overwrite the file)
-  fs.appendFile(logFilePath, logMessage, (err) => {
+  // --- START MODIFICATION FOR CLOUD DEPLOYMENT ---
+  /* fs.appendFile(logFilePath, logMessage, (err) => {
     if (err) {
       console.error('CRITICAL: Failed to write to honeypot.log', err);
     }
   });
+  */
+  // --- END MODIFICATION FOR CLOUD DEPLOYMENT ---
 };
 
 // Helper function to log attempts (now async for Geo-IP lookup)
@@ -65,7 +68,7 @@ const logAttempt = async (req) => {
     req.originalUrl
   } | UA: ${userAgent}`;
   console.log(hitMessage);
-  logToFile(hitMessage);
+  logToFile(hitMessage); // This function now only logs to the console
 
   // 2. Log all Request Headers (Deep Forensics)
   const headerMessage = `[HEADERS] ${JSON.stringify(req.headers)}`;
