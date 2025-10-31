@@ -1,0 +1,13 @@
+2025-10-31T12:55:16.124Z - [HIT] IP: ::1 | GET /api/users | UA: PostmanRuntime/7.49.1...
+2025-10-31T12:55:16.125Z - [BODY] {"email":"attacker@postman-test.com","password":"password123"}
+2025-10-31T12:57:38.599Z - [HIT] IP: ::1 | GET /api/users | UA: PostmanRuntime/7.49.1...
+2025-10-31T13:02:43.229Z - [HIT] IP: ::1 | GET /api/admin/logs | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64...
+31/10/2025, 6:34:25 pm - [HIT] IP: ::1 | GET /api/admin/logs | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64...
+31/10/2025, 6:40:27 pm - [HIT] IP: ::1 | GET /api/admin/logs | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:23:44 pm - [HIT] IP: ::1 | GET /api/billing/subscriptio | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:23:53 pm - [HIT] IP: ::1 | GET /api/billing/invoices | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:31:19 pm - [HIT] IP: ::1 | GET /api/billing/subscription | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:32:12 pm - [HIT] IP: ::1 | GET /api/billing/subscription | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:32:15 pm - [HIT] IP: ::1 | GET /api/billing/subscription | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:37:24 pm - [HIT] IP: ::1 | GET /api/billing/subscription | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+31/10/2025, 7:37:35 pm - [HIT] IP: ::1 | GET /api/admin/logs | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
