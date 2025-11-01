@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="assets/css/login.css">
+
+    <title>Login Page</title>
+</head>
+<body>
+    <i class='bx bx-moon change-theme' id="theme-button"></i>
+
+    <div class="login__container">
+        <form action="" class="login__box">
+            <h2 class="login__title">Login</h2>
+
+            <div class="login__group">
+                <label for="username" class="login__label">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" class="login__input">
+            </div>
+
+            <div class="login__group">
+                <label for="password" class="login__label">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" class="login__input">
+            </div>
+
+            <a href="#" class="login__forgot">Forgot Password?</a>
+
+            <button type="submit" class="button login__button">Login</button>
+
+            <p class="login__signup">
+                Don't have an account? <a href="#">Sign up</a>
+            </p>
+        </form>
+    </div>
+
+    <script src="assets/js/login.js"></script>
+</body>
+</html>

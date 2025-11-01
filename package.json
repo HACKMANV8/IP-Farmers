@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "api-gateway",
   "version": "1.0.0",
   "description": "",
@@ -9,5 +10,9 @@
   "dependencies": {
     "axios": "^1.13.1",
     "express": "^5.1.0"
+=======
+  "dependencies": {
+    "axios": "^1.13.1"
+>>>>>>> 0458d8cb2b4833cf20d93371a80444079f021d4c
   }
 }
