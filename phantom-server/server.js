@@ -1,7 +1,29 @@
+// --- DATABASE CONNECTION & SERVER START ---
+// 1. Establish connection to MongoDB Atlas using the MONGO_URI from Render's environment variables.
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        // 2. If connection succeeds, log success and START the Express server.
+        app.listen(port, () => {
+            console.log('✅ MongoDB CONNECTION SUCCESS! Database is ready.');
+            console.log(`🍯 HONEYPOT Server listening on port ${port}`);
+            // ... rest of the start logs
+        });
+    })
+    .catch(err => {
+        // 3. If connection fails, log a critical error and DO NOT start the server.
+        console.error('❌ FATAL DB CONNECTION FAILED:', err.message);
+        // Exiting the application on failure is a safe practice.
+    });
 // server.js: Entry point for the Phantom Honeypot Server
+// server.js: Entry point for the Phantom Honeypot Server
+ // <--- ADD THIS LINE
+// ... rest of the imports
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+
+const mongoose = require('mongoose'); // <--- ADD THIS LINE
+// ... rest of the imports
 const apiRoutes = require('./src/routes/apiRoutes');
 const { addFakeDelay } = require('./src/middleware/honeypotUtils');
 const rateLimit = require('express-rate-limit');
